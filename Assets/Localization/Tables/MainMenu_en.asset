@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MainMenu_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 113f1ec9bca5faa43a24bbdc1da14e37, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 115093745664
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 438474584064
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 441007943680
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443490971648
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5459127775232
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5475108073472
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13604025741312
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13534157025280
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13572178391040
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357798263074816
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 357975178817536
+    m_Localized: High
+    m_Metadata:
+      m_Items: []
+  - m_Id: 358000957009920
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 358022406680576
+    m_Localized: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 359341750169600
+    m_Localized: Ultra
+    m_Metadata:
+      m_Items: []
+  - m_Id: 360365990817792
+    m_Localized: Very Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361610646335488
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361802598658048
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370670519136256
+    m_Localized: Are you sure you want to exit?
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
