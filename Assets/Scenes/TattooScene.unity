@@ -330,11 +330,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 187667850}
+  background: {fileID: 1057199546}
   faces:
   - {fileID: 307112575}
   - {fileID: 1259870538}
   - {fileID: 1215873919}
   - {fileID: 1004133658}
+  backgroundColors:
+  - {r: 0.19588822, g: 0.5849056, b: 0.22594835, a: 1}
+  - {r: 0.8113208, g: 0.67085594, b: 0.07271269, a: 1}
+  - {r: 0.7169812, g: 0.38060316, b: 0.1251335, a: 1}
+  - {r: 0.5283019, g: 0.09718762, b: 0.09718762, a: 1}
 --- !u!1 &228386540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6320754, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.19607843, g: 0.58431375, b: 0.22745098, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

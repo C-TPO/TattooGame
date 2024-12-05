@@ -3,17 +3,23 @@ using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.UI;
 
-//TODO: MAKE CUSTOM SLIDER
 public class PainToleranceMeter : MonoBehaviour
 {
     [SerializeField, NotNull] private Slider slider = null;
+    [SerializeField, NotNull] private Image background = null;
     [SerializeField, NotNull] private GameObject[] faces = null;
+    [SerializeField, NotNull] private Color[] backgroundColors = null;
 
     private bool isPassedOut = false;
     private int currentFaceIndex = 0;
 
     private const float DefaultMaxValue = 100f;
-    private const float defaultPainIncrement = .005f;
+    private const float defaultPainIncrement = .01f;
+
+    private void Awake()
+    {
+        slider.interactable = false;
+    }
 
     public Action OnPassedOut;
 
@@ -66,6 +72,8 @@ public class PainToleranceMeter : MonoBehaviour
         {
             for(int i=0; i < faces.Length; i++)
                 faces[i].SetActive(i == currentFaceIndex);
+            
+            background.color = backgroundColors[currentFaceIndex];
         }
     }
 }
