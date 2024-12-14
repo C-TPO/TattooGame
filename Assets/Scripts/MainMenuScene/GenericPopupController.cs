@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GenericPopupController : MonoBehaviour
 {
+    [SerializeField, NotNull] private TextMeshProUGUI messageText = null;
     [SerializeField, NotNull] private Button confirmBtn = null;
     [SerializeField, NotNull] private Button cancelBtn = null;
 
@@ -30,8 +31,9 @@ public class GenericPopupController : MonoBehaviour
 
     #region Public API
 
-    public void Open(Action doOnSuccess = null, Action doOnCancel = null)
+    public void Open(string message, Action doOnSuccess = null, Action doOnCancel = null)
     {
+        messageText.text = message;
         onSuccess = doOnSuccess;
         onCancel = doOnCancel;
         OpenPopup();

@@ -11,6 +11,7 @@ public class DrawManager : MonoBehaviour
     private Line currentLine = null;
     private Vector2 currentMousePos = Vector2.zero;
     private Bounds currentBounds;
+    private TattooClient currentClient = null;
     private bool isTattooing = false;
     private bool canTattoo = false;
     private float lineWidth = .2f;
@@ -47,7 +48,7 @@ public class DrawManager : MonoBehaviour
                 return;
 
             currentLine.SetPosition(currentMousePos);
-            painMeter.UpdateMeter(2.0f);//TODO: use client's pain tolerance here
+            painMeter.UpdateMeter(currentClient.PainSensitivity);
         }
 
         if(Input.GetMouseButtonUp(0))
@@ -60,7 +61,7 @@ public class DrawManager : MonoBehaviour
 
         if(!isTattooing)
         {
-            painMeter.UpdateMeter(-1.5f);//TODO: use client's pain tolerance here?
+            painMeter.UpdateMeter(currentClient.PainRecoveryRate);
         }
     }
 
@@ -68,10 +69,12 @@ public class DrawManager : MonoBehaviour
 
     #region Public API
 
-    public void EnableTattooing(SpriteRenderer stencil)
+    public void EnableTattooing(TattooClient client, SpriteRenderer stencil)
     {
+        currentClient = client;
         currentBounds = stencil.localBounds;
         canTattoo = true;
+        print(currentClient.ClientName + "  " + currentClient.PainRecoveryRate + "  " + currentClient.PainSensitivity);
     }
 
     public void UpdateLineWidth(float value)

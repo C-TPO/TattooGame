@@ -90,6 +90,11 @@ MonoBehaviour:
     m_Localized: "\xBFEst\xE1s segura de que quieres salir?"
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Localized: "\xBFQuieres empezar una partida nueva? Los datos guardados anteriormente
+      se sobrescribir\xE1n.\r"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

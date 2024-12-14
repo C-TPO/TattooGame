@@ -1,22 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Settings;
 
 public class ButtonsController : MonoBehaviour
 {
     [SerializeField, NotNull] private GenericPopupController genericPopupController = null;
     [SerializeField, NotNull] private SettingsPopupController settingsPopupController = null;
+    [SerializeField, NotNull] private GameObject continueButton = null;
+
+    private void Start()
+    {
+        continueButton.SetActive(DataPersistenceManager.instance.HasSavedData());
+    }
 
     public void OnNewGameClick()
     {
-        //TODO: SETUP NEW GAME SYSTEM
+        if(!DataPersistenceManager.instance.HasSavedData())
+        {
+            StartNewGame();
+            return;
+        }
+
+        string message = LocalizationSettings.StringDatabase.GetLocalizedString("MainMenu", "ui_newgameareyousure");
+        genericPopupController.Open(message, StartNewGame);
+
+        return;
+
+        void StartNewGame()
+        {
+            DataPersistenceManager.instance.NewGame();
+            SceneLoader.Load(SceneLoader.GameScene.TattooScene);
+        }
     }
 
     public void OnContinueClick()
     {
-        //TODO: CONTINUE LAST PLAYED GAME
+        if(!DataPersistenceManager.instance.HasSavedData())
+            return;
+        
         SceneLoader.Load(SceneLoader.GameScene.TattooScene);
     }
 
@@ -27,6 +48,7 @@ public class ButtonsController : MonoBehaviour
 
     public void OnExitClicked()
     {
-        genericPopupController.Open(Application.Quit);
+        string message = LocalizationSettings.StringDatabase.GetLocalizedString("MainMenu", "ui_areyousureyouwanttoexit");
+        genericPopupController.Open(message, Application.Quit);
     }
 }

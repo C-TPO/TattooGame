@@ -87,6 +87,10 @@ MonoBehaviour:
     m_Key: ui_areyousureyouwanttoexit
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Key: ui_newgameareyousure
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

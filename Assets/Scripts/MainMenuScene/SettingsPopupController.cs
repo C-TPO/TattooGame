@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class SettingsPopupController : MonoBehaviour
 {
+    [SerializeField, NotNull] private GameObject container = null;
     [SerializeField, NotNull] private Slider musicSlider = null;
     [SerializeField, NotNull] private Slider sfxSlider = null;
     [SerializeField, NotNull] private TMP_Dropdown languageDropdown = null;
@@ -37,12 +38,12 @@ public class SettingsPopupController : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        container.SetActive(true);
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        container.SetActive(false);
     }
 
     public void OnLanguageSelected(int languageIndex)

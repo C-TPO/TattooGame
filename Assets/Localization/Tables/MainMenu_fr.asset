@@ -90,6 +90,11 @@ MonoBehaviour:
     m_Localized: "\r\xCAtes-vous s\xFBr de vouloir quitter ?"
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Localized: "Commencer une nouvelle partie ? Les donn\xE9es de sauvegarde pr\xE9c\xE9dentes
+      seront \xE9cras\xE9es."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

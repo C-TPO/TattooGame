@@ -92,6 +92,10 @@ MonoBehaviour:
     m_Localized: "\rSind Sie sicher, dass Sie den Vorgang beenden m\xF6chten?"
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Localized: "Neues Spiel starten? Bisherige Speicherdaten werden \xFCberschrieben.\r"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

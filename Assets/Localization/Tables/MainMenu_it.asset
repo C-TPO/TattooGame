@@ -90,6 +90,11 @@ MonoBehaviour:
     m_Localized: "Sei sicuro di voler uscire?\r"
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Localized: "Inizia una nuova partita? I dati di salvataggio precedenti verranno
+      sovrascritti.\r"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

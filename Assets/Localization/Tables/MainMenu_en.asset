@@ -90,6 +90,10 @@ MonoBehaviour:
     m_Localized: Are you sure you want to exit?
     m_Metadata:
       m_Items: []
+  - m_Id: 4098989961981952
+    m_Localized: Start a new game? Previous save data will be overwritten.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
