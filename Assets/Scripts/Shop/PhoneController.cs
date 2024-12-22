@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class PhoneController : MonoBehaviour
 {
+    [SerializeField] private SettingsPopupController settingsPopupController = null;
+
     private Animator animator;
     private bool isShown = false;
     private bool canToggle = true;
@@ -55,6 +55,13 @@ public class PhoneController : MonoBehaviour
     private void Hide()
     {
         animator.Play("Close");
+    }
+
+    //APP ICON TAP METHODS
+
+    public void OpenSettings()
+    {
+        settingsPopupController.Show();
     }
 
     #endregion

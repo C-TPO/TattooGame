@@ -1,12 +1,11 @@
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
 public class ButtonsController : MonoBehaviour
 {
-    [SerializeField, NotNull] private GenericPopupController genericPopupController = null;
-    [SerializeField, NotNull] private SettingsPopupController settingsPopupController = null;
-    [SerializeField, NotNull] private GameObject continueButton = null;
+    [SerializeField] private GenericPopupController genericPopupController = null;
+    [SerializeField] private SettingsPopupController settingsPopupController = null;
+    [SerializeField] private GameObject continueButton = null;
 
     private void Start()
     {
