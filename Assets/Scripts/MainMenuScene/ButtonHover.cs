@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(EventTrigger))]
 public class ButtonHover : MonoBehaviour
 {
     [SerializeField, NotNull] private TextMeshProUGUI text = null;

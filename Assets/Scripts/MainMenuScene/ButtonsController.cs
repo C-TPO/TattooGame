@@ -29,7 +29,7 @@ public class ButtonsController : MonoBehaviour
         void StartNewGame()
         {
             DataPersistenceManager.instance.NewGame();
-            SceneLoader.Load(SceneLoader.GameScene.TattooScene);
+            SceneLoader.Load(SceneLoader.GameScene.ShopScene);
         }
     }
 
@@ -38,7 +38,7 @@ public class ButtonsController : MonoBehaviour
         if(!DataPersistenceManager.instance.HasSavedData())
             return;
         
-        SceneLoader.Load(SceneLoader.GameScene.TattooScene);
+        SceneLoader.Load(SceneLoader.GameScene.ShopScene);
     }
 
     public void OnSettingsClick()

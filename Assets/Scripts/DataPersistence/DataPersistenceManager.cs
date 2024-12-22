@@ -9,7 +9,7 @@ public class DataPersistenceManager : MonoBehaviour
     public static DataPersistenceManager instance {get; private set;}
 
     [Header("Debugging")]
-    [SerializeField] private bool initiDataIfNull = false;
+    [SerializeField] private bool initDataIfNull = false;
 
     [SerializeField]private string fileName = "SaveData.game";
     [SerializeField] private bool useEncryption = false;
@@ -69,7 +69,7 @@ public class DataPersistenceManager : MonoBehaviour
         //load any saved data from a file using the data handler
         gameData = dataHandler.Load();
 
-        if(gameData == null && initiDataIfNull)
+        if(gameData == null && initDataIfNull)
         {
             NewGame();
         }
@@ -97,7 +97,7 @@ public class DataPersistenceManager : MonoBehaviour
         //pass the data to other scripts so they can update it
         foreach(IDataPersistence dataPersistenceObject in dataPersistenceObjects)
         {
-            dataPersistenceObject.SaveData(ref gameData);
+            dataPersistenceObject.SaveData(gameData);
         }
 
         //save that data to a file using the data handler
@@ -110,7 +110,7 @@ public class DataPersistenceManager : MonoBehaviour
     
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

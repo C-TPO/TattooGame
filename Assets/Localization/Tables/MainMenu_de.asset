@@ -96,6 +96,14 @@ MonoBehaviour:
     m_Localized: "Neues Spiel starten? Bisherige Speicherdaten werden \xFCberschrieben.\r"
     m_Metadata:
       m_Items: []
+  - m_Id: 6609138689716224
+    m_Localized: Phone ge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6609221741129728
+    m_Localized: Loading
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

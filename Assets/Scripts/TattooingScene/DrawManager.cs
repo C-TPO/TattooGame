@@ -11,7 +11,7 @@ public class DrawManager : MonoBehaviour
     private Line currentLine = null;
     private Vector2 currentMousePos = Vector2.zero;
     private Bounds currentBounds;
-    private TattooClient currentClient = null;
+    private TattooClientData currentClient = null;
     private bool isTattooing = false;
     private bool canTattoo = false;
     private float lineWidth = .2f;
@@ -71,7 +71,7 @@ public class DrawManager : MonoBehaviour
 
     public void EnableTattooing(TattooClient client, SpriteRenderer stencil)
     {
-        currentClient = client;
+        currentClient = client.ClientData;
         currentBounds = stencil.localBounds;
         canTattoo = true;
         print(currentClient.ClientName + "  " + currentClient.PainRecoveryRate + "  " + currentClient.PainSensitivity);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-public class SceneController : MonoBehaviour, IDataPersistence
+public class TattooSceneController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private SpriteRenderer stencil = null;
     [SerializeField] private DrawManager drawManager = null;
@@ -20,9 +20,10 @@ public class SceneController : MonoBehaviour, IDataPersistence
     void Start()
     {
         //TODO: Client and stencil should be passed in here, after the booking phase
-        currentClient = new TattooClient();
-        currentClient.Init("Doof McGoof");
-        if(stencils.Length > 0)
+        currentClient = new TattooClient();//REMOVE
+        currentClient.Init(new TattooClientData("Pierre"));//REMOVE
+        
+        if(stencils.Length > 0)//REMOVE
         {
             stencil.sprite = stencils[Random.Range(0, stencils.Length)];
         }
@@ -39,7 +40,6 @@ public class SceneController : MonoBehaviour, IDataPersistence
     {
         //Wired up in inspector
         scoreController.ScoreTattoo(stencil);
-        print("Validate");
         tattoosCompleted++;
         DataPersistenceManager.instance.SaveGame();
     }
@@ -49,7 +49,7 @@ public class SceneController : MonoBehaviour, IDataPersistence
         tattoosCompleted = data.tattoosCompleted;
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.tattoosCompleted = tattoosCompleted;
     }
