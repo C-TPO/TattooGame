@@ -48,7 +48,7 @@ public class DrawManager : MonoBehaviour
                 return;
 
             currentLine.SetPosition(currentMousePos);
-            painMeter.UpdateMeter(currentClient.PainSensitivity);
+            painMeter.UpdateMeter(currentClient.painSensitivity);
         }
 
         if(Input.GetMouseButtonUp(0))
@@ -61,7 +61,7 @@ public class DrawManager : MonoBehaviour
 
         if(!isTattooing)
         {
-            painMeter.UpdateMeter(currentClient.PainRecoveryRate);
+            painMeter.UpdateMeter(currentClient.painRecoveryRate);
         }
     }
 
@@ -74,7 +74,7 @@ public class DrawManager : MonoBehaviour
         currentClient = client.ClientData;
         currentBounds = stencil.localBounds;
         canTattoo = true;
-        print(currentClient.ClientName + "  " + currentClient.PainRecoveryRate + "  " + currentClient.PainSensitivity);
+        print(currentClient.clientName + "  " + currentClient.painRecoveryRate + "  " + currentClient.painSensitivity);
     }
 
     public void UpdateLineWidth(float value)

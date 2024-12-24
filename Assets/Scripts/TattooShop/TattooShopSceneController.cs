@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShopSceneController : MonoBehaviour
+public class TattooShopSceneController : MonoBehaviour
 {
     [SerializeField] private PhoneController phoneController;
 

@@ -5,13 +5,15 @@ public class GameData
 {
     public int tattoosCompleted;
     public Inventory inventory;
-    public List<TattooClient> clients;
+    public List<TattooClientData> tattooClients;
+    public List<TattooClientBookingData> currentBookingList;
 
     public GameData()
     {
         tattoosCompleted = 0;
         inventory = new Inventory();
-        clients = new List<TattooClient>();
+        tattooClients = new List<TattooClientData>();
+        currentBookingList = new List<TattooClientBookingData>();
     }
 }
 

@@ -1835,6 +1835,8 @@ MonoBehaviour:
   stencils:
   - {fileID: 21300000, guid: 978ad3d7056c47347b04c58d421b6e77, type: 3}
   - {fileID: 21300000, guid: cad83adf0464cb14eb1b958edb7be39c, type: 3}
+  - {fileID: 21300000, guid: 8096a77784c0d3442b5bd6018dd01f78, type: 3}
+  - {fileID: 21300000, guid: a663e72b45dfcdc47a8b7ef6dc9b3eb7, type: 3}
 --- !u!4 &1304116516
 Transform:
   m_ObjectHideFlags: 0

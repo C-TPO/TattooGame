@@ -4,6 +4,7 @@ using UnityEngine;
 public class PhoneController : MonoBehaviour
 {
     [SerializeField] private SettingsPopupController settingsPopupController = null;
+    [SerializeField] private BookingUIController bookingUI = null;
 
     private Animator animator;
     private bool isShown = false;
@@ -38,14 +39,49 @@ public class PhoneController : MonoBehaviour
         }
     }
 
+    public void ResetToggleable()
+    {
+        //NOTE: Called at the end of show/hide animations
+        canToggle = true;
+    }
+
+    //--------------------
+    //APP ICON TAP METHODS
+    //--------------------
+
+    public void OpenBookingApp()
+    {
+        bookingUI.Show();
+    }
+
+    public void OpenSocialMediaApp()
+    {
+        //TODO
+    }
+
+    public void OpenTattooShopInfoApp()
+    {
+        //TODO
+    }
+
+    public void OpenShopApp()
+    {
+        //TODO
+    }
+
+    public void OpenHiringApp()
+    {
+        //TODO
+    }
+
+    public void OpenSettingsApp()
+    {
+        settingsPopupController.Show();
+    }
+
     #endregion
 
     #region Implementation
-
-    public void ResetToggleable()
-    {
-        canToggle = true;
-    }
 
     private void Show()
     {
@@ -55,13 +91,6 @@ public class PhoneController : MonoBehaviour
     private void Hide()
     {
         animator.Play("Close");
-    }
-
-    //APP ICON TAP METHODS
-
-    public void OpenSettings()
-    {
-        settingsPopupController.Show();
     }
 
     #endregion

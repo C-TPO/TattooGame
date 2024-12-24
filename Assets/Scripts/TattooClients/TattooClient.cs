@@ -13,6 +13,7 @@ public class TattooClient : MonoBehaviour
     #region Public API
 
     public TattooClientData ClientData => clientData;
+    public string ClientName => clientName;
 
     public void Init(TattooClientData clientData)
     {
