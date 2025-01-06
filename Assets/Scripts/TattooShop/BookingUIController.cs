@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
     #region Public API
 
+    public Action OnClientBooked;
+
     public void Show()
     {
         InitClients();
@@ -28,22 +31,27 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
     public void ClientSelected(BookingUIClient client)
     {
-        print("CLIENT SELECTED " + client.ClientName);
+        //Save current client incase app is closed before tattoo is complete
+        client.TattooClientBookingData.clientData.isNewClient = false;//TODO: remove? toggle this after the tattoo
+        DataPersistenceManager.instance.GameData.currentBookedClient = client.TattooClientBookingData;
+
+        //Clear out stored list
         clientBookingData.Clear();
         foreach(var c in clients)
         {
             Destroy(c.gameObject);
         }
         clients.Clear();
-        client.TattooClientBookingData.clientData.isNewClient = false;//TODO: remove?
         TattooClientManager.instance.UpdateClientData(client.TattooClientBookingData.clientData);
         Hide();
-        //TODO: launch tattoo scene?
+
+        OnClientBooked?.Invoke();
+
+        //SceneLoader.Load(SceneLoader.GameScene.TattooScene);
     }
 
     public void LoadData(GameData data)
     {
-        print("LOADeD BOOKING DATA");
         clientBookingData = data.currentBookingList;
     }
 
@@ -65,7 +73,7 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
         {
             var potentialClients = TattooClientManager.instance.GetRandomClientsList(numClientsToChoose);
             foreach(var c in potentialClients)
-                clientBookingData.Add(new TattooClientBookingData(c, Random.Range(1,5)));//TODO: Find a better way to choose stencil index
+                clientBookingData.Add(new TattooClientBookingData(c, TattooStencilManager.instance.GetRandomStencilIndex()));//TODO: find a more random way to set these
             
             DataPersistenceManager.instance.SaveGame();
         }
@@ -76,11 +84,6 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
             clientUI.Init(clientBookingData[i], delegate{OnClientClicked(clientUI);});
             clients.Add(clientUI);
         }
-    }
-
-    private void ClearUI()
-    {
-
     }
 
     private void OnClientClicked(BookingUIClient client)

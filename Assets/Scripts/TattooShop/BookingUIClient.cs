@@ -11,7 +11,6 @@ public class BookingUIClient : MonoBehaviour
     [SerializeField] private Image clientImg;
     [SerializeField] private Image stencilImg;
     [SerializeField] private TextMeshProUGUI hoursText;
-    [SerializeField] private Sprite[] stencils;//TODO: REMOVE!
 
     private TattooClientBookingData tattooClientBookingData;
     private Button btn = null;
@@ -32,11 +31,12 @@ public class BookingUIClient : MonoBehaviour
 
     public void Init(TattooClientBookingData bookingData, Action<BookingUIClient> buttonCallback)
     {
+        TattooStencilScriptableObject currentStencil = TattooStencilManager.instance.GetStencilByIndex(bookingData.tattooDesignIndex);
         btn = GetComponent<Button>();
         tattooClientBookingData = bookingData;
-        //TODO: redo this
         nameText.text = tattooClientBookingData.clientData.clientName;
-        stencilImg.sprite = stencils[bookingData.tattooDesignIndex-1];
+        hoursText.text = currentStencil.duration.ToString();
+        stencilImg.sprite = currentStencil.sprite;
         stencilImg.SetNativeSize();
         btn.onClick.AddListener(() => buttonCallback(this));
     }

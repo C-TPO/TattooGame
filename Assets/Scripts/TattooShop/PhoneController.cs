@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 public class PhoneController : MonoBehaviour
@@ -77,6 +78,12 @@ public class PhoneController : MonoBehaviour
     public void OpenSettingsApp()
     {
         settingsPopupController.Show();
+    }
+    
+    public void ExitApp()
+    {
+        //TODO: Add an 'are you sure' popup
+        SceneLoader.Load(SceneLoader.GameScene.MainMenuScene);
     }
 
     #endregion

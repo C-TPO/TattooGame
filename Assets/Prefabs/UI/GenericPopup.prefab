@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5503046019244855905}
-  highlightColor: {r: 0, g: 0.3274386, b: 1, a: 1}
+  highlightColor: {r: 0.9843137, g: 0, b: 0, a: 1}
 --- !u!114 &2091555159972719755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2080772794553681547}
-  highlightColor: {r: 0, g: 0.3274386, b: 1, a: 1}
+  highlightColor: {r: 0.9843137, g: 0, b: 0, a: 1}
 --- !u!114 &502880568088035702
 MonoBehaviour:
   m_ObjectHideFlags: 0

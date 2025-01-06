@@ -1,16 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WorkTimer : MonoBehaviour
+public class WorkTimer : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Image timerImage = null;
 
-    private const float hourIncrement = 1.25f;
+    private const float hourIncrement = .125f;
 
-    public bool IncreaseTimer(int numHours)
+    #region Public API
+
+    public void ResetTimer()
+    {
+        timerImage.fillAmount = 0f;
+    }
+
+    public void LoadData(GameData data)
+    {
+        print("LOADING TIMER " + data.currentTimeElapsed);
+        IncreaseTimer(data.currentTimeElapsed);
+    }
+
+    public void SaveData(GameData data)
+    {
+
+    }
+
+    #endregion
+
+    #region Implementation
+
+    private bool IncreaseTimer(int numHours)
     {
         float amountToIncrease = hourIncrement * numHours;
-
+        
         if(timerImage.fillAmount + amountToIncrease > 1.0f)
             return false;
 
@@ -19,8 +41,5 @@ public class WorkTimer : MonoBehaviour
         return true;
     }
 
-    public void ResetTimer()
-    {
-        timerImage.fillAmount = 0f;
-    }
+    #endregion
 }

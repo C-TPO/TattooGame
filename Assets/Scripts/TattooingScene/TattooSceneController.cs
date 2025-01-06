@@ -1,33 +1,28 @@
 
+using System.Collections;
 using UnityEngine;
-
-using Random = UnityEngine.Random;
 
 public class TattooSceneController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private SpriteRenderer stencil = null;
     [SerializeField] private DrawManager drawManager = null;
     [SerializeField] private ScoreController scoreController = null;
-    [SerializeField] private Sprite[] stencils = {};
+    [SerializeField] private ScoringUIController scoringUIController = null;
     
-    private TattooClient currentClient;
-    private int tattoosCompleted = 0;
+    private TattooClientBookingData currentClientData;
+    private TattooStencilScriptableObject currentStencilData;
+    private bool isTattooComplete = false;
 
     #region Unity Messages
 
     void Start()
     {
-        //TODO: Client and stencil should be passed in here, after the booking phase
-        currentClient = new TattooClient();//REMOVE
-        currentClient.Init(new TattooClientData("Pierre"));//REMOVE
+        currentClientData = DataPersistenceManager.instance.GameData.currentBookedClient;
+        currentStencilData = TattooStencilManager.instance.GetStencilByIndex(currentClientData.tattooDesignIndex);
         
-        if(stencils.Length > 0)//REMOVE
-        {
-            stencil.sprite = stencils[Random.Range(0, stencils.Length)];
-        }
-        drawManager.EnableTattooing(currentClient, stencil);
+        stencil.sprite = currentStencilData.sprite;
 
-        Debug.Log(DataPersistenceManager.instance.GameData.tattoosCompleted);
+        drawManager.EnableTattooing(currentClientData, stencil);
     }
 
     #endregion
@@ -37,24 +32,67 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
     public void ValidateTattoo()
     {
         //Wired up in inspector
-        scoreController.ScoreTattoo(stencil);
-        tattoosCompleted++;
-        DataPersistenceManager.instance.SaveGame();
+        float score = scoreController.ScoreTattoo(stencil, out Texture2D tattooTexture);
+        isTattooComplete = true;
+
+        StartCoroutine(ShowScore(score, tattooTexture));
     }
 
     public void LoadData(GameData data)
     {
-        tattoosCompleted = data.tattoosCompleted;
+
     }
 
     public void SaveData(GameData data)
     {
-        data.tattoosCompleted = tattoosCompleted;
+        if(!isTattooComplete)
+            return;
+        
+        data.currentBookedClient = null;
+        data.currentTimeElapsed += currentStencilData.duration;
+        data.inventory.totalCash += 100;//TODO: redo this based on difficulty, score, etc.
     }
 
-    public void TempBack()
+    public void ContinuePressed()
     {
-        SceneLoader.Load(SceneLoader.GameScene.MainMenuScene);
+        SceneLoader.Load(SceneLoader.GameScene.ShopScene);
+    }
+
+    #endregion
+
+    #region Implementation
+
+    private IEnumerator ShowScore(float score, Texture2D tex)
+    {
+        yield return new WaitForEndOfFrame();
+
+        scoringUIController.Show(GetNumStars(score), tex);
+        isTattooComplete = true;
+
+        DataPersistenceManager.instance.SaveGame();
+    }
+
+    private int GetNumStars(float score)
+    {
+        int numStars = 0;
+
+        switch(score)
+        {
+            case > 90f:
+                numStars = 4;
+                break;
+            case > 85f:
+                numStars = 3;
+                break;
+            case > 75f:
+                numStars = 2;
+                break;
+            case > 65f:
+                numStars = 1;
+                break;
+        }
+
+        return numStars;
     }
 
     #endregion

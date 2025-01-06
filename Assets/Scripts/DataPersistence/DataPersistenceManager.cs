@@ -53,6 +53,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool HasSavedData() => gameData != null;
 
+    public bool HasBookedTattoo() => gameData.currentBookedClient.clientData.clientName != "";
+
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadGame();

@@ -8,7 +8,7 @@ public class ScoreController : MonoBehaviour
 
     #region Public API
 
-    public float ScoreTattoo(SpriteRenderer stencil)
+    public float ScoreTattoo(SpriteRenderer stencil, out Texture2D tattooTexture)
     {
         tattooCamera.cullingMask = tattooMask;
 
@@ -20,8 +20,9 @@ public class ScoreController : MonoBehaviour
         RenderTexture.active = tattooRT;
         tattooCamera.Render();
 
-        Texture2D tattooTexture = new Texture2D(texWidth,texHeight);
+        tattooTexture = new Texture2D(texWidth,texHeight);
         tattooTexture.ReadPixels(new Rect(0,0,texWidth,texHeight),0,0);
+        tattooTexture.Apply();
         RenderTexture.active = null;
 
         tattooCamera.cullingMask = stencilMask;
@@ -40,7 +41,6 @@ public class ScoreController : MonoBehaviour
         float score = CompareTextures(tattooTexture.GetPixels(), stencilTexture.GetPixels());
 
         Destroy(stencilTexture);
-        Destroy(tattooTexture);
 
         return score;
     }

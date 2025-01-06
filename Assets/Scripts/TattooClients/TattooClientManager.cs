@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TattooClientManager : MonoBehaviour
+public class TattooClientManager : MonoBehaviour, IDataPersistence
 {
     public static TattooClientManager instance {get; private set;}
 
@@ -57,6 +57,7 @@ public class TattooClientManager : MonoBehaviour
 
     public void SaveData(GameData data)
     {
+        print("SAVE DATA");
         data.tattooClients = tattooClientData;
     }
 

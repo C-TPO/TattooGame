@@ -1,11 +1,10 @@
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class DrawManager : MonoBehaviour
 {
-    [SerializeField, NotNull] private Line linePrefab = null;
-    [SerializeField, NotNull] private Transform lineParent = null;
-    [SerializeField, NotNull] private PainToleranceMeter painMeter = null;
+    [SerializeField] private Line linePrefab = null;
+    [SerializeField] private Transform lineParent = null;
+    [SerializeField] private PainToleranceMeter painMeter = null;
 
     private Camera mainCamera = null;
     private Line currentLine = null;
@@ -69,9 +68,9 @@ public class DrawManager : MonoBehaviour
 
     #region Public API
 
-    public void EnableTattooing(TattooClient client, SpriteRenderer stencil)
+    public void EnableTattooing(TattooClientBookingData client, SpriteRenderer stencil)
     {
-        currentClient = client.ClientData;
+        currentClient = client.clientData;
         currentBounds = stencil.localBounds;
         canTattoo = true;
         print(currentClient.clientName + "  " + currentClient.painRecoveryRate + "  " + currentClient.painSensitivity);

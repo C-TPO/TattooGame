@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ButtonHover : MonoBehaviour
 {
     [SerializeField, NotNull] private TextMeshProUGUI text = null;
-    [SerializeField] private Color highlightColor = Color.white;
+    [SerializeField] private Color highlightColor = new Color(0.984313725f, 0f, 0f);
 
     private Color defaultColor = Color.white;
     
