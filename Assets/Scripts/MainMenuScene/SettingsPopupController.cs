@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Localization.Settings;
@@ -15,10 +17,12 @@ public class SettingsPopupController : MonoBehaviour
     [SerializeField, NotNull] private TMP_Dropdown qualityDropdown = null;
     [SerializeField, NotNull] private TMP_Dropdown resolutionDropdown = null;
     [SerializeField, NotNull] private Toggle fullscreenToggle = null;
-    [SerializeField, NotNull] private AudioMixer musicMixer = null;
-    [SerializeField, NotNull] private AudioMixer sfxMixer = null;
+    [SerializeField, NotNull] private AudioMixer masterMixer = null;
 
     private Resolution[] resolutions = null;
+
+    private const string MIXER_MUSIC = "MusicVolume";
+    private const string MIXER_SFX = "SFXVolume";
 
     #region Unity Messages
 
@@ -60,13 +64,13 @@ public class SettingsPopupController : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        musicMixer.SetFloat("Volume", volume);
+        masterMixer.SetFloat(MIXER_MUSIC, Mathf.Log10(volume) * 20);
         PlayerPrefsManager.SaveMusicVolume(volume);
     }
 
     public void SetSfxVolume(float volume)
     {
-        sfxMixer.SetFloat("Volume", volume);
+        masterMixer.SetFloat(MIXER_SFX, Mathf.Log10(volume) * 20);
         PlayerPrefsManager.SaveSfxVolume(volume);
     }
 
@@ -110,7 +114,13 @@ public class SettingsPopupController : MonoBehaviour
 
     private void SetupSlider(Slider slider, float value)
     {
-        slider.value = value;
+        if(value != 0f)
+            slider.value = value;
+        
+        if(slider == musicSlider)
+            SetMusicVolume(slider.value);
+        else if(slider == sfxSlider)
+            SetSfxVolume(slider.value);
     }
 
     private void SetDropdown(TMP_Dropdown dropdown, int index)

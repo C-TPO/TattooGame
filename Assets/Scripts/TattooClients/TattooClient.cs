@@ -1,9 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class TattooClient : MonoBehaviour
 {
-    [SerializeField, NotNull] private string clientName = "";
+    [SerializeField] private string clientName = "";
     private TattooClientData clientData = null;
 
     #region Unity Messages

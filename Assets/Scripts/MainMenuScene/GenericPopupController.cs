@@ -1,14 +1,15 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
+
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GenericPopupController : MonoBehaviour
 {
-    [SerializeField, NotNull] private TextMeshProUGUI messageText = null;
-    [SerializeField, NotNull] private Button confirmBtn = null;
-    [SerializeField, NotNull] private Button cancelBtn = null;
+    [SerializeField] private TextMeshProUGUI messageText = null;
+    [SerializeField] private Button confirmBtn = null;
+    [SerializeField] private Button cancelBtn = null;
 
     private Action onSuccess = null;
     private Action onCancel = null;

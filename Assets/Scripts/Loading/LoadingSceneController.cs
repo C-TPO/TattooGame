@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using TMPro;
+
 using UnityEngine;
 
 public class LoadingSceneController : MonoBehaviour
 {
-    [SerializeField, NotNull] private TextMeshProUGUI loadingText = null;
+    [SerializeField] private TextMeshProUGUI loadingText = null;
 
     private string defaultText = "";
     private string appendText = ".";

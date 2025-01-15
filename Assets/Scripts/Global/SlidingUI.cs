@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using DG.Tweening;
+
 using UnityEngine;
 
 public class SlidingUI : MonoBehaviour
 {
-    [SerializeField, NotNull] private float hideAmountX = 0f;
-    [SerializeField, NotNull] private float hideAmountY = 0f;
-    [SerializeField, NotNull] private RectTransform container = null;
+    [SerializeField] private float hideAmountX = 0f;
+    [SerializeField] private float hideAmountY = 0f;
+    [SerializeField] private RectTransform container = null;
     [SerializeField] private GameObject[] toggles = {};
 
     private Vector3 originalPos = Vector3.zero;

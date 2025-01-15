@@ -16,7 +16,6 @@ public class WorkTimer : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        print("LOADING TIMER " + data.currentTimeElapsed);
         IncreaseTimer(data.currentTimeElapsed);
     }
 
