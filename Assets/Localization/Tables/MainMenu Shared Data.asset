@@ -99,6 +99,10 @@ MonoBehaviour:
     m_Key: ui_loading
     m_Metadata:
       m_Items: []
+  - m_Id: 19279062759321600
+    m_Key: ui_booking
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

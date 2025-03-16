@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class PhoneController : MonoBehaviour
@@ -10,6 +11,7 @@ public class PhoneController : MonoBehaviour
     private Animator animator;
     private bool isShown = false;
     private bool canToggle = true;
+    private PhoneApp selectedButton = null;
 
     #region Unity Messages
 
@@ -46,49 +48,87 @@ public class PhoneController : MonoBehaviour
         canToggle = true;
     }
 
-    //--------------------
-    //APP ICON TAP METHODS
-    //--------------------
+    public void AppTapped(PhoneApp button)
+    {
+        if(selectedButton != button)
+        {
+            selectedButton?.ShrinkButton();
+            selectedButton = button;
+            selectedButton.EnlargeButton();
+            return;
+        }
 
-    public void OpenBookingApp()
-    {
-        bookingUI.Show();
-    }
-
-    public void OpenSocialMediaApp()
-    {
-        //TODO
-    }
-
-    public void OpenTattooShopInfoApp()
-    {
-        //TODO
-    }
-
-    public void OpenShopApp()
-    {
-        //TODO
-    }
-
-    public void OpenHiringApp()
-    {
-        //TODO
-    }
-
-    public void OpenSettingsApp()
-    {
-        settingsPopupController.Show();
-    }
-    
-    public void ExitApp()
-    {
-        //TODO: Add an 'are you sure' popup
-        SceneLoader.Load(SceneLoader.GameScene.MainMenuScene);
+        switch(button.Type)
+        {
+            case PhoneApp.AppType.Booking:
+                OpenBookingApp();
+                break;
+            case PhoneApp.AppType.Hiring:
+                OpenHiringApp();
+                break;
+            case PhoneApp.AppType.Shop:
+                OpenShopApp();
+                break;
+            case PhoneApp.AppType.Social:
+                OpenSocialMediaApp();
+                break;
+            case PhoneApp.AppType.Info:
+                OpenTattooShopInfoApp();
+                break;
+            case PhoneApp.AppType.Settings:
+                OpenSettingsApp();
+                break;
+            case PhoneApp.AppType.Exit:
+                ExitApp();
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion
 
     #region Implementation
+
+    //--------------------
+    //APP ICON TAP METHODS
+    //--------------------
+
+    private void OpenBookingApp()
+    {
+        bookingUI.Show();
+    }
+
+    private void OpenSocialMediaApp()
+    {
+        //TODO
+    }
+
+    private void OpenTattooShopInfoApp()
+    {
+        //TODO
+    }
+
+    private void OpenShopApp()
+    {
+        //TODO
+    }
+
+    private void OpenHiringApp()
+    {
+        //TODO
+    }
+
+    private void OpenSettingsApp()
+    {
+        settingsPopupController.Show();
+    }
+    
+    private void ExitApp()
+    {
+        //TODO: Add an 'are you sure' popup
+        SceneLoader.Load(SceneLoader.GameScene.MainMenuScene);
+    }
 
     private void Show()
     {

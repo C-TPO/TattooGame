@@ -58,7 +58,6 @@ public class TattooClientManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        print("SAVE DATA");
         data.tattooClients = tattooClientData;
     }
 
