@@ -72,7 +72,7 @@ public class TattooClientManager : MonoBehaviour, IDataPersistence
         if(tattooClientData.Count == 0)
         {
             foreach(TattooClient c in tattooClientPrefabs)
-                tattooClientData.Add(new TattooClientData(c.ClientName));
+                tattooClientData.Add(new TattooClientData(c.ClientName, c.ToleranceLevel, c.RecoveryLevel));
             
             DataPersistenceManager.instance.SaveGame();
         }

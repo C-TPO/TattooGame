@@ -1,20 +1,25 @@
-using UnityEngine;
-
 [System.Serializable]
 public class TattooClientData
 {
     #region Public API
 
+    public enum ClientTolerances
+    {
+        Low,
+        Medium,
+        High
+    }
+
     public string clientName;
-    public float painSensitivity;
-    public float painRecoveryRate;
+    public ClientTolerances painSensitivity;
+    public ClientTolerances painRecoveryRate;
     public bool isNewClient;
 
-    public TattooClientData(string _name)
+    public TattooClientData(string _name, ClientTolerances tolerance = ClientTolerances.Low, ClientTolerances recovery = ClientTolerances.Low)
     {
         clientName = _name;
-        painSensitivity = Random.Range(.5f, 2.5f);
-        painRecoveryRate = Random.Range(-1.5f, -2.5f);
+        painSensitivity = tolerance;
+        painRecoveryRate = recovery;
         isNewClient = true;
     }
 
