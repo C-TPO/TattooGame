@@ -1,5 +1,5 @@
-
 using System.Collections;
+
 using UnityEngine;
 
 public class TattooSceneController : MonoBehaviour, IDataPersistence

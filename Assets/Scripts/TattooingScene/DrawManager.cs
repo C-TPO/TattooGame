@@ -5,6 +5,7 @@ public class DrawManager : MonoBehaviour
     [SerializeField] private Line linePrefab = null;
     [SerializeField] private Transform lineParent = null;
     [SerializeField] private PainToleranceMeter painMeter = null;
+    [SerializeField] private TattooMachineController tattooMachineController = null;
 
     private Camera mainCamera = null;
     private Line currentLine = null;
@@ -30,14 +31,20 @@ public class DrawManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             currentMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
             if (!IsInBounds(currentMousePos))
+            {
+                tattooMachineController.TurnOff();
                 return;
+            }
+
             isTattooing = true;
             currentLine = Instantiate(linePrefab, currentMousePos, Quaternion.identity, lineParent);
             currentLine.SetLineWidth(lineWidth);
             currentLine.SetPosition(currentMousePos);
 
             //TODO: Start sfx
+            tattooMachineController.TurnOn();
         }
 
         if (isTattooing && Input.GetMouseButton(0))
@@ -56,6 +63,7 @@ public class DrawManager : MonoBehaviour
             isTattooing = false;
 
             //TODO: End sfx
+            tattooMachineController.TurnOff();
         }
 
         if (!isTattooing)
@@ -80,6 +88,7 @@ public class DrawManager : MonoBehaviour
     {
         //Wired up in inspector
         lineWidth = value;
+        tattooMachineController.UpdateTipSize(value);
     }
 
     #endregion

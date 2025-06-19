@@ -1332,55 +1332,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1013395285
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1013395287}
-  - component: {fileID: 1013395286}
-  m_Layer: 0
-  m_Name: TattooStencilManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1013395286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013395285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef8129f0c3856a4bad437cc72151f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stencilList:
-  - {fileID: 11400000, guid: e97b6aa3921ee664b8c2ad1ce23b5a6f, type: 2}
-  - {fileID: 11400000, guid: 1decf291bf161e846bf9e5079414c351, type: 2}
-  - {fileID: 11400000, guid: c096cbf3570187a4998a9a2d9be020ad, type: 2}
-  - {fileID: 11400000, guid: 003de52e124e8914c9031a970bcc460a, type: 2}
---- !u!4 &1013395287
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013395285}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.14769852, y: 0.5948475, z: 59.548214}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1104549846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,12 +2464,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98811d38fce75b41a9c1ebb0095852a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5735609168401688300
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7434450497227971861, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_Name
+      value: TattooStencilManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.14769852
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5948475
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 59.548214
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8340193268609937419, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e6a21f2860a31ff4a9d3ac3685b68940, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 36427518}
-  - {fileID: 1013395287}
+  - {fileID: 5735609168401688300}
   - {fileID: 795706398}
   - {fileID: 595333474}
   - {fileID: 639526281}
