@@ -1742,8 +1742,8 @@ RectTransform:
   - {fileID: 1597051761}
   - {fileID: 256300612}
   - {fileID: 187667849}
-  - {fileID: 3303735470405373913}
   - {fileID: 366329793}
+  - {fileID: 3303735470405373913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2340,7 +2340,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

@@ -19,6 +19,8 @@ public class BookingUIClient : MonoBehaviour
     private TattooClientBookingData tattooClientBookingData;
     private Button btn = null;
 
+    private const string clientImgPath = "Images/Clients/";
+
     #region Unity Messages
 
     private void OnDestroy()
@@ -44,6 +46,7 @@ public class BookingUIClient : MonoBehaviour
         recoveryText.text = tattooClientBookingData.clientData.painRecoveryRate.ToString();
         hoursText.text = currentStencil.duration.ToString();
 
+        clientImg.sprite = Resources.Load<Sprite>( clientImgPath + "Client_" + tattooClientBookingData.clientData.clientName.Replace(" ", "") );
         stencilImg.sprite = currentStencil.sprite;
         stencilImg.SetNativeSize();
         btn.onClick.AddListener(() => buttonCallback(this));

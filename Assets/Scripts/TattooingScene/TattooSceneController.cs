@@ -23,6 +23,8 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
         stencil.sprite = currentStencilData.sprite;
 
         drawManager.EnableTattooing(currentClientData, stencil);
+
+        Cursor.visible = false;
     }
 
     #endregion
@@ -66,6 +68,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
     {
         yield return new WaitForEndOfFrame();
 
+        Cursor.visible = true;
         scoringUIController.Show(GetNumStars(score), tex);
         isTattooComplete = true;
 

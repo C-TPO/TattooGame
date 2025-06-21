@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class BookingUIController : MonoBehaviour, IDataPersistence
@@ -11,6 +12,7 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
     private List<TattooClientBookingData> clientBookingData = new List<TattooClientBookingData>();
     private List<BookingUIClient> clients = new List<BookingUIClient>();
+    private TattooClientBookingData bookedClientData = null;
 
     private const int numClientsToChoose = 3;
 
@@ -20,6 +22,7 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
     public void Show()
     {
+        bookedClientData = DataPersistenceManager.instance.GameData.currentBookedClient;
         InitClients();
         container.SetActive(true);
     }
@@ -37,7 +40,7 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
         //Clear out stored list
         clientBookingData.Clear();
-        foreach(var c in clients)
+        foreach (var c in clients)
         {
             Destroy(c.gameObject);
         }
@@ -46,8 +49,11 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
         Hide();
 
         OnClientBooked?.Invoke();
+    }
 
-        //SceneLoader.Load(SceneLoader.GameScene.TattooScene);
+    public void StartTattoo()
+    {
+        SceneLoader.Load(SceneLoader.GameScene.TattooScene);
     }
 
     public void LoadData(GameData data)
@@ -66,22 +72,31 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
 
     private void InitClients()
     {
-        if(clientParent.childCount != 0)
+        if (clientParent.childCount != 0)
             return;
 
-        if(clientBookingData.Count == 0)
+        if (bookedClientData != null && bookedClientData.clientData.clientName != string.Empty)
+        {
+            //If we have a booked client, just show them
+            var clientUI = Instantiate(clientUIPrefab, clientParent).GetComponent<BookingUIClient>();
+            clientUI.Init(bookedClientData, delegate { OnBookedClientClicked(clientUI); });
+            clients.Add(clientUI);
+            return;
+        }
+
+        if (clientBookingData.Count == 0)
         {
             var potentialClients = TattooClientManager.instance.GetRandomClientsList(numClientsToChoose);
-            foreach(var c in potentialClients)
+            foreach (var c in potentialClients)
                 clientBookingData.Add(new TattooClientBookingData(c, TattooStencilManager.instance.GetRandomStencilIndex()));//TODO: find a more random way to set these
-            
+
             DataPersistenceManager.instance.SaveGame();
         }
 
-        for(int i = 0; i < clientBookingData.Count; i++)
-        { 
+        for (int i = 0; i < clientBookingData.Count; i++)
+        {
             var clientUI = Instantiate(clientUIPrefab, clientParent).GetComponent<BookingUIClient>();
-            clientUI.Init(clientBookingData[i], delegate{OnClientClicked(clientUI);});
+            clientUI.Init(clientBookingData[i], delegate { OnClientClicked(clientUI); });
             clients.Add(clientUI);
         }
     }
@@ -89,6 +104,11 @@ public class BookingUIController : MonoBehaviour, IDataPersistence
     private void OnClientClicked(BookingUIClient client)
     {
         genericPopupController.Open("Are you sure you want to book " + client.ClientName + "?", () => ClientSelected(client));//TODO: LOCALIZE
+    }
+    
+    private void OnBookedClientClicked(BookingUIClient client)
+    {
+        genericPopupController.Open("Start tattooing " + client.ClientName + "?", () => StartTattoo());//TODO: LOCALIZE
     }
 
     #endregion
