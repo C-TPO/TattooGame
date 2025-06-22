@@ -29,6 +29,7 @@ public class ScaleLoop : MonoBehaviour
             .Append(transform.DOScale(minScaleVector, duration))
             .SetEase(ease)
             .SetLoops(-1)
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy)
             .Play();
     }
 }

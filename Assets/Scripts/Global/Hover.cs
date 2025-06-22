@@ -28,6 +28,7 @@ public class Hover : MonoBehaviour
             .Append(transform.DOLocalMoveY(lowerPosY, duration))
             .SetEase(ease)
             .SetLoops(-1)
+            .SetLink(gameObject, LinkBehaviour.KillOnDestroy)
             .Play();
     }
 }

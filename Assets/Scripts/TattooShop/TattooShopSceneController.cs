@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class TattooShopSceneController : MonoBehaviour
@@ -5,6 +6,7 @@ public class TattooShopSceneController : MonoBehaviour
     [SerializeField] private PhoneController phoneController;
     [SerializeField] private GameObject tattooButton;
     [SerializeField] private BookingUIController bookingUIController;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     #region Unity Messages
 
@@ -12,6 +14,7 @@ public class TattooShopSceneController : MonoBehaviour
     {
         //TODO: possibly move this depending on when we clear out the booked tattoo
         tattooButton.SetActive(DataPersistenceManager.instance.HasBookedTattoo());
+        moneyText.text = DataPersistenceManager.instance.GameData.inventory.totalCash.ToString();
     }
 
     private void OnEnable()

@@ -31,8 +31,7 @@ public class WorkTimer : MonoBehaviour, IDataPersistence
     private bool IncreaseTimer(int numHours)
     {
         float amountToIncrease = hourIncrement * numHours;
-        
-        if(timerImage.fillAmount + amountToIncrease > 1.0f)
+        if (timerImage.fillAmount + amountToIncrease > 1.0f)
             return false;
 
         timerImage.fillAmount += hourIncrement * numHours;
