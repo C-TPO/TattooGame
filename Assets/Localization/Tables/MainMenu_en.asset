@@ -94,16 +94,8 @@ MonoBehaviour:
     m_Localized: Start a new game? Previous save data will be overwritten.
     m_Metadata:
       m_Items: []
-  - m_Id: 6609138689716224
-    m_Localized: Phone
-    m_Metadata:
-      m_Items: []
   - m_Id: 6609221741129728
     m_Localized: Loading
-    m_Metadata:
-      m_Items: []
-  - m_Id: 19279062759321600
-    m_Localized: Booking
     m_Metadata:
       m_Items: []
   references:

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Shop Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Shop
+  m_TableCollectionNameGuidString: bcbc929290a1cb345be02fa57a10c129
+  m_Entries:
+  - m_Id: 20583493632
+    m_Key: shop_app_shop_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1617057230848
+    m_Key: shop_candy_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1808925667328
+    m_Key: shop_candy_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2627876106240
+    m_Key: shop_cream_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2689347825664
+    m_Key: shop_cream_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3719959621632
+    m_Key: shop_spray_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3744026537984
+    m_Key: shop_spray_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4255035371520
+    m_Key: shop_inkpack1_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4308546301952
+    m_Key: shop_inkpack1_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9521600606208
+    m_Key: shop_phone
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 660787104372752459
+  references:
+    version: 2
+    RefIds:
+    - rid: 660787104372752459
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1752857635835

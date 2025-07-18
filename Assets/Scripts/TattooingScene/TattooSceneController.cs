@@ -52,7 +52,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
         
         data.currentBookedClient = null;
         data.currentTimeElapsed += currentStencilData.duration;
-        data.inventory.totalCash += 100;//TODO: redo this based on difficulty, score, etc.
+        data.inventory.TotalCash += 100;//TODO: redo this based on difficulty, score, etc.
     }
 
     public void ContinuePressed()

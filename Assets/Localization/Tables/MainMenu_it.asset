@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 438474584064
-    m_Localized: Nuovo gioco
+    m_Localized: Nuovo Gioco
     m_Metadata:
       m_Items: []
   - m_Id: 441007943680
@@ -95,16 +95,8 @@ MonoBehaviour:
       sovrascritti.\r"
     m_Metadata:
       m_Items: []
-  - m_Id: 6609138689716224
-    m_Localized: Phone it
-    m_Metadata:
-      m_Items: []
   - m_Id: 6609221741129728
     m_Localized: Loading
-    m_Metadata:
-      m_Items: []
-  - m_Id: 19279062759321600
-    m_Localized: Booking
     m_Metadata:
       m_Items: []
   references:

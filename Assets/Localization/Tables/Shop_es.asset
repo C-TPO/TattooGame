@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Shop_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: bcbc929290a1cb345be02fa57a10c129, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 20583493632
+    m_Localized: Tienda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1617057230848
+    m_Localized: Caramelo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1808925667328
+    m_Localized: "Un dulce delicioso. El caramelo aumentar\xE1 el nivel de az\xFAcar
+      en sangre de tu cliente y le permitir\xE1 continuar el tatuaje despu\xE9s de
+      desmayarse."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2627876106240
+    m_Localized: "Crema Anest\xE9sica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2689347825664
+    m_Localized: "\tCuando se aplica antes de un tatuaje, la Crema Anest\xE9sica
+      mejora la tolerancia al dolor del cliente. Sin embargo, podr\xEDa afectar negativamente
+      la calidad del tatuaje."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3719959621632
+    m_Localized: "Spray Anest\xE9sico"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3744026537984
+    m_Localized: "El Spray Anest\xE9sico puede usarse durante un tatuaje para aumentar
+      temporalmente la tolerancia al dolor del cliente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4255035371520
+    m_Localized: Paquete de Tinta #1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4308546301952
+    m_Localized: 'Un paquete de 3 botellas de tinta de color. Contiene: Rojo, Amarillo
+      y Verde.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9521600606208
+    m_Localized: "Tel\xE9fono"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -8,6 +8,7 @@ public class PhoneController : MonoBehaviour
     [SerializeField] private GameObject uiObject = null;
     [SerializeField] private SettingsPopupController settingsPopupController = null;
     [SerializeField] private BookingUIController bookingUI = null;
+    [SerializeField] private ShoppingUIController shoppingUI = null;
 
     private Animator animator;
     private PhoneApp selectedButton = null;
@@ -109,6 +110,7 @@ public class PhoneController : MonoBehaviour
                 case PhoneApp.AppType.Hiring:
                     break;
                 case PhoneApp.AppType.Shop:
+                    shoppingUI.Hide();
                     break;
                 case PhoneApp.AppType.Social:
                     break;
@@ -166,7 +168,7 @@ public class PhoneController : MonoBehaviour
     private void OpenShopApp()
     {
         ZoomIn();
-        //TODO
+        shoppingUI.Show();
     }
 
     private void OpenHiringApp()

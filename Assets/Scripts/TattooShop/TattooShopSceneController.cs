@@ -12,9 +12,19 @@ public class TattooShopSceneController : MonoBehaviour
 
     private void Start()
     {
-        //TODO: possibly move this depending on when we clear out the booked tattoo
         tattooButton.SetActive(DataPersistenceManager.instance.HasBookedTattoo());
-        moneyText.text = DataPersistenceManager.instance.GameData.inventory.totalCash.ToString();
+        RefreshCashUI();
+        DataPersistenceManager.instance.GameData.inventory.OnCashChanged += RefreshCashUI;
+    }
+
+    private void OnDestroy()
+    {
+        DataPersistenceManager.instance.GameData.inventory.OnCashChanged -= RefreshCashUI;
+    }
+
+    private void RefreshCashUI()
+    {
+        moneyText.text = DataPersistenceManager.instance.GameData.inventory.TotalCash.ToString();
     }
 
     private void OnEnable()

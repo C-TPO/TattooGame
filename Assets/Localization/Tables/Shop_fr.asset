@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Shop_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: bcbc929290a1cb345be02fa57a10c129, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 20583493632
+    m_Localized: Magasin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1617057230848
+    m_Localized: Bonbon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1808925667328
+    m_Localized: "Une friandise sucr\xE9e. Le bonbon augmentera la glyc\xE9mie de
+      votre client et lui permettra de continuer le tatouage apr\xE8s s\u2019\xEAtre
+      \xE9vanoui."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2627876106240
+    m_Localized: "Cr\xE8me Anesth\xE9siante"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2689347825664
+    m_Localized: "Lorsqu\u2019elle est appliqu\xE9e avant un tatouage, la Cr\xE8me
+      Anesth\xE9siante am\xE9liore la tol\xE9rance \xE0 la douleur du client. Elle
+      peut cependant nuire \xE0 la qualit\xE9 du tatouage."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3719959621632
+    m_Localized: "Spray Anesth\xE9siant"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3744026537984
+    m_Localized: "Le Spray Anesth\xE9siant peut \xEAtre utilis\xE9 pendant un tatouage
+      pour augmenter temporairement la tol\xE9rance \xE0 la douleur du client"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4255035371520
+    m_Localized: "Pack d\u2019Encre #1"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4308546301952
+    m_Localized: "Un pack de 3 bouteilles d\u2019encre color\xE9e. Contient : Rouge,
+      Jaune et Vert."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9521600606208
+    m_Localized: "T\xE9l\xE9phone"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
