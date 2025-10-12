@@ -2857,6 +2857,10 @@ MonoBehaviour:
   lineParent: {fileID: 8155840}
   painMeter: {fileID: 187667851}
   tattooMachineController: {fileID: 366329795}
+  lineWidth: 0.2
+  leadInDuration: 0.1
+  taperDuration: 0.1
+  minPointSpacing: 0.005
 --- !u!4 &1310589330
 Transform:
   m_ObjectHideFlags: 0

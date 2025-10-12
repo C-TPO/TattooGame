@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TattooMachine_TEMP_0: 4285641522906736535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
