@@ -29,24 +29,23 @@ public class ScoreControllerLegacy : MonoBehaviour
 
     #region Public API
 
-    public TattooScoreResult ScoreTattoo(
-        Texture2D tattooTexture,
-        Sprite targetSprite)
+    public TattooScoreResult ScoreTattoo(Texture2D tattooTexture,Texture2D targetTexture)
     {
-        Texture2D targetTexture = CreateTargetTexture(
-            targetSprite,
-            tattooTexture.width,
-            tattooTexture.height
-        );
+        if (tattooTexture.width != targetTexture.width
+            || tattooTexture.height != targetTexture.height)
+        {
+            Debug.LogError(
+                "Tattoo and target textures must "
+                + "have matching dimensions."
+            );
 
-        TattooScoreResult result = CompareTextures(
+            return default;
+        }
+
+        return CompareTextures(
             tattooTexture.GetPixels32(),
             targetTexture.GetPixels32()
         );
-
-        Destroy(targetTexture);
-
-        return result;
     }
 
     #endregion
@@ -146,7 +145,7 @@ public class ScoreControllerLegacy : MonoBehaviour
         if (logScoreBreakdown)
         {
             Debug.Log(
-                $"Tattoo Score: {result.totalScore:0.0} | "
+                $"Tattoo Score (LEGACY): {result.totalScore:0.0} | "
                 + $"Target Accuracy: {targetAccuracy * 100f:0.0} | "
                 + $"Background Accuracy: "
                 + $"{backgroundAccuracy * 100f:0.0} | "

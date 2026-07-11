@@ -20,18 +20,27 @@ public class ScoreController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float coverageWeight = 0.6f;
     [SerializeField, Range(0f, 1f)] private float precisionWeight = 0.4f;
 
+    [Header("Score Adjustment")]
+    [SerializeField, Range(0.25f, 1f)]
+    private float scoreCurvePower = 0.75f;
+
     private const float DiagonalDistance = 1.41421356f;
     private const float InfiniteDistance = 1000000f;
 
     #region Public API
 
-    public TattooScoreResult ScoreTattoo(Texture2D tattooTexture,Sprite targetSprite)
+    public TattooScoreResult ScoreTattoo(Texture2D tattooTexture,Texture2D targetTexture)
     {
-        Texture2D targetTexture = CreateTargetTexture(
-            targetSprite,
-            tattooTexture.width,
-            tattooTexture.height
-        );
+        if (tattooTexture.width != targetTexture.width
+            || tattooTexture.height != targetTexture.height)
+        {
+            Debug.LogError(
+                "Tattoo and target textures must "
+                + "have matching dimensions."
+            );
+
+            return default;
+        }
 
         bool[] targetMask = CreateMask(
             targetTexture.GetPixels32(),
@@ -56,10 +65,12 @@ public class ScoreController : MonoBehaviour
         );
 
         float coverageTolerancePixels =
-            tattooTexture.width * coverageToleranceNormalized;
+            tattooTexture.width
+            * coverageToleranceNormalized;
 
         float precisionTolerancePixels =
-            tattooTexture.width * precisionToleranceNormalized;
+            tattooTexture.width
+            * precisionToleranceNormalized;
 
         float coverage = CalculateMatchScore(
             targetMask,
@@ -73,27 +84,35 @@ public class ScoreController : MonoBehaviour
             precisionTolerancePixels
         );
 
-        float totalWeight = coverageWeight + precisionWeight;
-        float totalScore = 0f;
+        float totalWeight =
+            coverageWeight
+            + precisionWeight;
+
+        float rawScore = 0f;
 
         if (totalWeight > 0f)
         {
-            totalScore = (
+            rawScore = (
                 coverage * coverageWeight
                 + precision * precisionWeight
             ) / totalWeight;
         }
 
-        Destroy(targetTexture);
-
-        TattooScoreResult result = new TattooScoreResult(
-            totalScore * 100f,
-            coverage * 100f,
-            precision * 100f
+        float adjustedScore = Mathf.Pow(
+            Mathf.Clamp01(rawScore),
+            scoreCurvePower
         );
+
+        TattooScoreResult result =
+            new TattooScoreResult(
+                adjustedScore * 100f,
+                coverage * 100f,
+                precision * 100f
+            );
 
         Debug.Log(
             $"Tattoo Score: {result.totalScore:0.0} | "
+            + $"Raw: {rawScore * 100f:0.0} | "
             + $"Coverage: {result.lineCoverage:0.0} | "
             + $"Precision: {result.linePrecision:0.0}"
         );

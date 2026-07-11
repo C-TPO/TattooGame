@@ -110,25 +110,57 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     #region Implementation
 
-    private TattooScoreResult ScoreTattoo(Texture2D tattooTexture)
+    private TattooScoreResult ScoreTattoo(
+    Texture2D tattooTexture)
     {
+        Texture2D targetTexture =
+            TattooScoringTextureBuilder.CreateTargetTexture(
+                stencil,
+                drawingArea,
+                tattooTexture.width,
+                tattooTexture.height
+            );
+
+        TattooScoreResult scoreResult;
+
         switch (scoringMode)
         {
             case TattooScoringMode.LegacyPixel:
-                return scoreControllerLegacy.ScoreTattoo(
-                    tattooTexture,
-                    stencil.sprite
-                );
+                scoreResult =
+                    scoreControllerLegacy.ScoreTattoo(
+                        tattooTexture,
+                        targetTexture
+                    );
+
+                   var tempScoreResult =
+                    scoreController.ScoreTattoo(
+                        tattooTexture,
+                        targetTexture
+                    );
+                break;
 
             case TattooScoringMode.DistanceBased:
-                return scoreController.ScoreTattoo(
-                    tattooTexture,
-                    stencil.sprite
-                );
+                scoreResult =
+                    scoreController.ScoreTattoo(
+                        tattooTexture,
+                        targetTexture
+                    );
+
+                    var tempScoreResult2 =
+                    scoreControllerLegacy.ScoreTattoo(
+                        tattooTexture,
+                        targetTexture
+                    );
+                break;
 
             default:
-                return default;
+                scoreResult = default;
+                break;
         }
+
+        Destroy(targetTexture);
+
+        return scoreResult;
     }
 
     private IEnumerator ShowScore(TattooScoreResult scoreResult,Texture2D tattooTexture)

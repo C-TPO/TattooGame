@@ -2134,13 +2134,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f459af5067468546b639d3c3d796358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAlphaThreshold: 0.1
-  tattooAlphaThreshold: 0.1
-  coverageToleranceNormalized: 0.04
-  precisionToleranceNormalized: 0.025
-  fullCreditRatio: 0.5
-  coverageWeight: 0.55
-  precisionWeight: 0.45
+  targetAlphaThreshold: 0.25
+  tattooAlphaThreshold: 0.15
+  coverageToleranceNormalized: 0.015
+  precisionToleranceNormalized: 0.008
+  fullCreditRatio: 0.15
+  coverageWeight: 0.45
+  precisionWeight: 0.55
+  scoreCurvePower: 1
 --- !u!114 &1031312980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,7 +2936,7 @@ MonoBehaviour:
   tattooInputController: {fileID: 183097825}
   tattooStrokeController: {fileID: 772884845}
   painMeter: {fileID: 187667851}
-  scoringMode: 1
+  scoringMode: 0
   scoreController: {fileID: 1031312979}
   scoreControllerLegacy: {fileID: 1031312980}
   scoringUIController: {fileID: 6347473519758230414}
