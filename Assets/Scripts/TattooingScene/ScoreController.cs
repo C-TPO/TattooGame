@@ -2,95 +2,340 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
-    [SerializeField] private Camera tattooCamera = null;
-    [SerializeField] private LayerMask stencilMask;
-    [SerializeField] private LayerMask tattooMask;
+    [Header("Mask")]
+    [SerializeField, Range(0f, 1f)] private float targetAlphaThreshold = 0.1f;
+    [SerializeField, Range(0f, 1f)] private float tattooAlphaThreshold = 0.1f;
+
+    [Header("Tolerance")]
+    [SerializeField, Range(0.001f, 0.1f)]
+    private float coverageToleranceNormalized = 0.04f;
+
+    [SerializeField, Range(0.001f, 0.1f)]
+    private float precisionToleranceNormalized = 0.025f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float fullCreditRatio = 0.5f;
+
+    [Header("Weights")]
+    [SerializeField, Range(0f, 1f)] private float coverageWeight = 0.6f;
+    [SerializeField, Range(0f, 1f)] private float precisionWeight = 0.4f;
+
+    private const float DiagonalDistance = 1.41421356f;
+    private const float InfiniteDistance = 1000000f;
 
     #region Public API
 
-    public float ScoreTattoo(SpriteRenderer stencil, out Texture2D tattooTexture)
+    public TattooScoreResult ScoreTattoo(
+        Texture2D tattooTexture,
+        Sprite targetSprite)
     {
-        tattooCamera.cullingMask = tattooMask;
+        Texture2D targetTexture = CreateTargetTexture(
+            targetSprite,
+            tattooTexture.width,
+            tattooTexture.height
+        );
 
-        int texWidth = (int)(stencil.bounds.size.x * stencil.sprite.pixelsPerUnit);
-        int texHeight = (int)(stencil.bounds.size.y * stencil.sprite.pixelsPerUnit);
+        bool[] targetMask = CreateMask(
+            targetTexture.GetPixels32(),
+            targetAlphaThreshold
+        );
 
-        RenderTexture tattooRT = new RenderTexture(texWidth,texHeight,16);
-        tattooCamera.targetTexture = tattooRT;
-        RenderTexture.active = tattooRT;
-        tattooCamera.Render();
+        bool[] tattooMask = CreateMask(
+            tattooTexture.GetPixels32(),
+            tattooAlphaThreshold
+        );
 
-        tattooTexture = new Texture2D(texWidth,texHeight);
-        tattooTexture.ReadPixels(new Rect(0,0,texWidth,texHeight),0,0);
-        tattooTexture.Apply();
-        RenderTexture.active = null;
+        float[] distanceToTarget = CreateDistanceMap(
+            targetMask,
+            tattooTexture.width,
+            tattooTexture.height
+        );
 
-        tattooCamera.cullingMask = stencilMask;
+        float[] distanceToTattoo = CreateDistanceMap(
+            tattooMask,
+            tattooTexture.width,
+            tattooTexture.height
+        );
 
-        stencil.color = Color.white;
+        float coverageTolerancePixels =
+            tattooTexture.width * coverageToleranceNormalized;
 
-        RenderTexture stencilRT = new RenderTexture(texWidth,texHeight,16);
-        tattooCamera.targetTexture = stencilRT;
-        RenderTexture.active = stencilRT;
-        tattooCamera.Render();
+        float precisionTolerancePixels =
+            tattooTexture.width * precisionToleranceNormalized;
 
-        Texture2D stencilTexture = new Texture2D(texWidth,texHeight);
-        stencilTexture.ReadPixels(new Rect(0,0,texWidth,texHeight),0,0);
-        RenderTexture.active = null;
+        float coverage = CalculateMatchScore(
+            targetMask,
+            distanceToTattoo,
+            coverageTolerancePixels
+        );
 
-        float score = CompareTextures(tattooTexture.GetPixels(), stencilTexture.GetPixels());
+        float precision = CalculateMatchScore(
+            tattooMask,
+            distanceToTarget,
+            precisionTolerancePixels
+        );
 
-        Destroy(stencilTexture);
+        float totalWeight = coverageWeight + precisionWeight;
+        float totalScore = 0f;
 
-        return score;
+        if (totalWeight > 0f)
+        {
+            totalScore = (
+                coverage * coverageWeight
+                + precision * precisionWeight
+            ) / totalWeight;
+        }
+
+        Destroy(targetTexture);
+
+        TattooScoreResult result = new TattooScoreResult(
+            totalScore * 100f,
+            coverage * 100f,
+            precision * 100f
+        );
+
+        Debug.Log(
+            $"Tattoo Score: {result.totalScore:0.0} | "
+            + $"Coverage: {result.lineCoverage:0.0} | "
+            + $"Precision: {result.linePrecision:0.0}"
+        );
+
+        return result;
     }
 
     #endregion
 
-    #region Implementation
+    #region Texture Conversion
 
-    private float CompareTextures(Color[] tattooPixels, Color[] stencilPixels)
+    private Texture2D CreateTargetTexture(
+        Sprite targetSprite,
+        int width,
+        int height)
     {
-        float finalScore = 0f;
-        float totalPixels = tattooPixels.Length;
+        Rect textureRect = targetSprite.textureRect;
+        Texture2D sourceTexture = targetSprite.texture;
 
-        float coloredStencilPixels = 0f;
-        float blankStencilPixels = 0f;
+        Vector2 scale = new Vector2(
+            textureRect.width / sourceTexture.width,
+            textureRect.height / sourceTexture.height
+        );
 
-        float wrongColoredPixels = 0f;
-        float wrongBlankPixels = 0f;
+        Vector2 offset = new Vector2(
+            textureRect.x / sourceTexture.width,
+            textureRect.y / sourceTexture.height
+        );
 
-        for(int i = 0; i < totalPixels; i++)
+        RenderTexture targetRenderTexture = RenderTexture.GetTemporary(
+            width,
+            height,
+            0,
+            RenderTextureFormat.ARGB32,
+            RenderTextureReadWrite.Default
+        );
+
+        targetRenderTexture.filterMode = FilterMode.Bilinear;
+
+        Graphics.Blit(
+            sourceTexture,
+            targetRenderTexture,
+            scale,
+            offset
+        );
+
+        RenderTexture previousRenderTexture = RenderTexture.active;
+        RenderTexture.active = targetRenderTexture;
+
+        Texture2D targetTexture = new Texture2D(
+            width,
+            height,
+            TextureFormat.RGBA32,
+            false
+        );
+
+        targetTexture.ReadPixels(
+            new Rect(0f, 0f, width, height),
+            0,
+            0
+        );
+
+        targetTexture.Apply();
+
+        RenderTexture.active = previousRenderTexture;
+        RenderTexture.ReleaseTemporary(targetRenderTexture);
+
+        return targetTexture;
+    }
+
+    private bool[] CreateMask(
+        Color32[] pixels,
+        float alphaThreshold)
+    {
+        bool[] mask = new bool[pixels.Length];
+        byte threshold = (byte)Mathf.RoundToInt(alphaThreshold * 255f);
+
+        for (int i = 0; i < pixels.Length; i++)
         {
-            if(stencilPixels[i].a != 0)//Check colored part of stencil
+            mask[i] = pixels[i].a >= threshold;
+        }
+
+        return mask;
+    }
+
+    #endregion
+
+    #region Distance Scoring
+
+    private float[] CreateDistanceMap(
+        bool[] sourceMask,
+        int width,
+        int height)
+    {
+        float[] distances = new float[sourceMask.Length];
+
+        for (int i = 0; i < sourceMask.Length; i++)
+        {
+            distances[i] = sourceMask[i]
+                ? 0f
+                : InfiniteDistance;
+        }
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
             {
-                coloredStencilPixels++;
-                
-                if(tattooPixels[i].a != 0)//TODO: Check if correct color once colors are implemented... maybe half points for incorrect color? 
-                    continue;
+                int index = y * width + x;
+                float distance = distances[index];
 
-                wrongColoredPixels++;
-            }
-            else if(stencilPixels[i].a == 0)//Check blank part of stencil
-            {
-                blankStencilPixels++;
+                if (x > 0)
+                {
+                    distance = Mathf.Min(
+                        distance,
+                        distances[index - 1] + 1f
+                    );
+                }
 
-                if(tattooPixels[i].a == 0)
-                    continue;
+                if (y > 0)
+                {
+                    distance = Mathf.Min(
+                        distance,
+                        distances[index - width] + 1f
+                    );
 
-                wrongBlankPixels++;
+                    if (x > 0)
+                    {
+                        distance = Mathf.Min(
+                            distance,
+                            distances[index - width - 1]
+                            + DiagonalDistance
+                        );
+                    }
+
+                    if (x < width - 1)
+                    {
+                        distance = Mathf.Min(
+                            distance,
+                            distances[index - width + 1]
+                            + DiagonalDistance
+                        );
+                    }
+                }
+
+                distances[index] = distance;
             }
         }
 
-        var finalScore1 = 100f - 100 * (wrongColoredPixels / coloredStencilPixels);
+        for (int y = height - 1; y >= 0; y--)
+        {
+            for (int x = width - 1; x >= 0; x--)
+            {
+                int index = y * width + x;
+                float distance = distances[index];
 
-        var finalScore2 = 100f - 100 * (wrongBlankPixels / blankStencilPixels);
+                if (x < width - 1)
+                {
+                    distance = Mathf.Min(
+                        distance,
+                        distances[index + 1] + 1f
+                    );
+                }
 
-        finalScore = (finalScore1 + finalScore2)/2;
-        finalScore = finalScore - ((wrongColoredPixels + wrongBlankPixels) / (coloredStencilPixels + blankStencilPixels) * 100);
+                if (y < height - 1)
+                {
+                    distance = Mathf.Min(
+                        distance,
+                        distances[index + width] + 1f
+                    );
 
-        print("FINAL: " + finalScore);
-        return finalScore;
+                    if (x < width - 1)
+                    {
+                        distance = Mathf.Min(
+                            distance,
+                            distances[index + width + 1]
+                            + DiagonalDistance
+                        );
+                    }
+
+                    if (x > 0)
+                    {
+                        distance = Mathf.Min(
+                            distance,
+                            distances[index + width - 1]
+                            + DiagonalDistance
+                        );
+                    }
+                }
+
+                distances[index] = distance;
+            }
+        }
+
+        return distances;
+    }
+
+    private float CalculateMatchScore(
+    bool[] pixelsToScore,
+    float[] comparisonDistanceMap,
+    float tolerancePixels)
+    {
+        float score = 0f;
+        int scoredPixelCount = 0;
+
+        float fullCreditDistance =
+            tolerancePixels * fullCreditRatio;
+
+        for (int i = 0; i < pixelsToScore.Length; i++)
+        {
+            if (!pixelsToScore[i])
+            {
+                continue;
+            }
+
+            float distance = comparisonDistanceMap[i];
+            float pixelScore;
+
+            if (distance <= fullCreditDistance)
+            {
+                pixelScore = 1f;
+            }
+            else
+            {
+                pixelScore = 1f - Mathf.InverseLerp(
+                    fullCreditDistance,
+                    tolerancePixels,
+                    distance
+                );
+            }
+
+            score += Mathf.Clamp01(pixelScore);
+            scoredPixelCount++;
+        }
+
+        if (scoredPixelCount == 0)
+        {
+            return 0f;
+        }
+
+        return score / scoredPixelCount;
     }
 
     #endregion

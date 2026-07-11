@@ -1,13 +1,14 @@
 using DG.Tweening;
-
 using UnityEngine;
 
 public class TattooMachineController : MonoBehaviour
 {
+    [SerializeField] private TattooInputController inputController = null;
     [SerializeField] private Transform machineTransform = null;
     [SerializeField] private RectTransform tipTransform = null;
+    [SerializeField] private float tipSizeMultiplier = 1000f;
 
-    private Vector3 machineIdlePosition = Vector3.one;
+    private Vector3 machineIdlePosition = Vector3.zero;
     private bool isOn = false;
 
     #region Unity Messages
@@ -19,9 +20,17 @@ public class TattooMachineController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (!inputController.HasPointerWorldPosition)
+        {
+            return;
+        }
 
-        transform.position = mousePos;
+        transform.position = inputController.CurrentWorldPosition;
+    }
+
+    private void OnDisable()
+    {
+        TurnOff();
     }
 
     #endregion
@@ -30,12 +39,14 @@ public class TattooMachineController : MonoBehaviour
 
     public void TurnOn()
     {
-        if(isOn)
+        if (isOn)
+        {
             return;
-        
+        }
+
         machineTransform.DOShakePosition(
             duration: 0.1f,
-            strength: 2.0f,
+            strength: 2f,
             vibrato: 10,
             randomness: 90f,
             snapping: false,
@@ -55,8 +66,13 @@ public class TattooMachineController : MonoBehaviour
 
     public void UpdateTipSize(float size)
     {
-        tipTransform.sizeDelta = new Vector2(size * 100, size * 100);
+        float displayedSize = size * tipSizeMultiplier;
+
+        tipTransform.sizeDelta = new Vector2(
+            displayedSize,
+            displayedSize
+        );
     }
-    
+
     #endregion
 }

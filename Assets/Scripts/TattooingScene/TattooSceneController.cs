@@ -1,28 +1,48 @@
 using System.Collections;
-
 using UnityEngine;
 
 public class TattooSceneController : MonoBehaviour, IDataPersistence
 {
+    [Header("Scene")]
     [SerializeField] private SpriteRenderer stencil = null;
-    [SerializeField] private DrawManager drawManager = null;
+    [SerializeField] private TattooSurface tattooCanvas = null;
+    [SerializeField] private TattooInputController tattooInputController = null;
+    [SerializeField] private TattooStrokeController tattooStrokeController = null;
+    [SerializeField] private PainToleranceMeter painMeter = null;
+
+    [Header("Scoring")]
     [SerializeField] private ScoreController scoreController = null;
     [SerializeField] private ScoringUIController scoringUIController = null;
-    
-    private TattooClientBookingData currentClientData;
-    private TattooStencilScriptableObject currentStencilData;
+
+    private TattooClientBookingData currentClientData = null;
+    private TattooStencilScriptableObject currentStencilData = null;
     private bool isTattooComplete = false;
 
     #region Unity Messages
 
-    void Start()
+    private void Start()
     {
-        currentClientData = DataPersistenceManager.instance.GameData.currentBookedClient;
-        currentStencilData = TattooStencilManager.instance.GetStencilByIndex(currentClientData.tattooDesignIndex);
-        
+        currentClientData = DataPersistenceManager
+            .instance
+            .GameData
+            .currentBookedClient;
+
+        currentStencilData = TattooStencilManager
+            .instance
+            .GetStencilByIndex(currentClientData.tattooDesignIndex);
+
         stencil.sprite = currentStencilData.sprite;
 
-        drawManager.EnableTattooing(currentClientData, stencil);
+        tattooCanvas.Initialize(stencil);
+        tattooInputController.Initialize(stencil);
+        painMeter.ResetMeter();
+
+        tattooStrokeController.Initialize(
+            GetPainMultiplier(currentClientData.clientData.painSensitivity),
+            GetRecoveryPerSecond(currentClientData.clientData.painRecoveryRate)
+        );
+
+        tattooStrokeController.EnableTattooing();
 
         Cursor.visible = false;
     }
@@ -33,26 +53,42 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     public void ValidateTattoo()
     {
-        //Wired up in inspector
-        float score = scoreController.ScoreTattoo(stencil, out Texture2D tattooTexture);
+        if (isTattooComplete)
+        {
+            return;
+        }
+
+        tattooStrokeController.DisableTattooing();
+
+        Texture2D tattooTexture = tattooCanvas.CreateTexture2D();
+
+        TattooScoreResult scoreResult = scoreController.ScoreTattoo(
+            tattooTexture,
+            stencil.sprite
+        );
+
         isTattooComplete = true;
 
-        StartCoroutine(ShowScore(score, tattooTexture));
+        StartCoroutine(ShowScore(
+            scoreResult,
+            tattooTexture
+        ));
     }
 
     public void LoadData(GameData data)
     {
-
     }
 
     public void SaveData(GameData data)
     {
-        if(!isTattooComplete)
+        if (!isTattooComplete)
+        {
             return;
-        
+        }
+
         data.currentBookedClient = null;
         data.currentTimeElapsed += currentStencilData.duration;
-        data.inventory.TotalCash += 100;//TODO: redo this based on difficulty, score, etc.
+        data.inventory.TotalCash += 100;
     }
 
     public void ContinuePressed()
@@ -64,38 +100,79 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     #region Implementation
 
-    private IEnumerator ShowScore(float score, Texture2D tex)
+    private IEnumerator ShowScore(
+        TattooScoreResult scoreResult,
+        Texture2D tattooTexture)
     {
         yield return new WaitForEndOfFrame();
 
         Cursor.visible = true;
-        scoringUIController.Show(GetNumStars(score), tex);
-        isTattooComplete = true;
+
+        scoringUIController.Show(
+            GetNumStars(scoreResult.totalScore),
+            tattooTexture
+        );
 
         DataPersistenceManager.instance.SaveGame();
     }
 
     private int GetNumStars(float score)
     {
-        int numStars = 0;
-
-        switch(score)
+        switch (score)
         {
-            case > 90f:
-                numStars = 4;
-                break;
-            case > 85f:
-                numStars = 3;
-                break;
-            case > 75f:
-                numStars = 2;
-                break;
-            case > 65f:
-                numStars = 1;
-                break;
-        }
+            case > 88f:
+                return 4;
 
-        return numStars;
+            case > 80f:
+                return 3;
+
+            case > 70f:
+                return 2;
+
+            case > 50f:
+                return 1;
+
+            default:
+                return 0;
+        }
+    }
+
+    private float GetPainMultiplier(
+        TattooClientData.ClientTolerances tolerance)
+    {
+        switch (tolerance)
+        {
+            case TattooClientData.ClientTolerances.Low:
+                return 2f;
+
+            case TattooClientData.ClientTolerances.Medium:
+                return 1f;
+
+            case TattooClientData.ClientTolerances.High:
+                return 0.5f;
+
+            default:
+                return 0.5f;
+        }
+    }
+
+    private float GetRecoveryPerSecond(
+        TattooClientData.ClientTolerances recovery)
+    {
+        switch (recovery)
+        {
+            case TattooClientData.ClientTolerances.Low:
+                return 1f;
+
+            case TattooClientData.ClientTolerances.Medium:
+                return 1.8f;
+
+            case TattooClientData.ClientTolerances.High:
+                return 2.4f;
+
+            default:
+                return 1f;
+        }
     }
 
     #endregion
