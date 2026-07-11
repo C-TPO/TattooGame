@@ -25,20 +25,27 @@ public class TattooSurface : MonoBehaviour
 
     #region Public API
 
-    public void Initialize(SpriteRenderer surface)
+    public void Initialize(SpriteRenderer surface,SpriteRenderer sortingReference)
     {
         drawingSurface = surface;
 
         CreateRuntimeMaterials();
         AlignDisplayToSurface();
 
-        displayRenderer.sortingLayerID = drawingSurface.sortingLayerID;
-        displayRenderer.sortingOrder = drawingSurface.sortingOrder + 1;
+        displayRenderer.sortingLayerID =
+            sortingReference.sortingLayerID;
+
+        displayRenderer.sortingOrder =
+            sortingReference.sortingOrder + 1;
 
         CreateCanvasTexture();
         Clear();
 
-        runtimeDisplayMaterial.SetTexture(MainTextureId, canvasTexture);
+        runtimeDisplayMaterial.SetTexture(
+            MainTextureId,
+            canvasTexture
+        );
+
         displayRenderer.enabled = true;
     }
 

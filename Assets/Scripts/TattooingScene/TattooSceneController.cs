@@ -4,8 +4,9 @@ using UnityEngine;
 public class TattooSceneController : MonoBehaviour, IDataPersistence
 {
     [Header("Scene")]
+    [SerializeField] private SpriteRenderer drawingArea = null;
     [SerializeField] private SpriteRenderer stencil = null;
-    [SerializeField] private TattooSurface tattooCanvas = null;
+    [SerializeField] private TattooSurface tattooSurface = null;
     [SerializeField] private TattooInputController tattooInputController = null;
     [SerializeField] private TattooStrokeController tattooStrokeController = null;
     [SerializeField] private PainToleranceMeter painMeter = null;
@@ -41,8 +42,12 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
         stencil.sprite = currentStencilData.sprite;
 
-        tattooCanvas.Initialize(stencil);
-        tattooInputController.Initialize(stencil);
+        tattooSurface.Initialize(
+            drawingArea,
+            stencil
+        );
+
+        tattooInputController.Initialize(drawingArea);
         painMeter.ResetMeter();
 
         tattooStrokeController.Initialize(
@@ -68,7 +73,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
         tattooStrokeController.DisableTattooing();
 
-        Texture2D tattooTexture = tattooCanvas.CreateTexture2D();
+        Texture2D tattooTexture = tattooSurface.CreateTexture2D();
 
         TattooScoreResult scoreResult = ScoreTattoo(tattooTexture);
 
