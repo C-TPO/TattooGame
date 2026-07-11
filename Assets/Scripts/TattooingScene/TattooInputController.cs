@@ -143,10 +143,7 @@ public class TattooInputController : MonoBehaviour
         HasPointerWorldPosition = true;
     }
 
-    private bool TryGetSurfacePosition(
-        Vector2 screenPosition,
-        out Vector3 worldPosition,
-        out Vector2 uv)
+    private bool TryGetSurfacePosition(Vector2 screenPosition, out Vector3 worldPosition, out Vector2 uv)
     {
         Ray ray = inputCamera.ScreenPointToRay(screenPosition);
         Plane surfacePlane = new Plane(

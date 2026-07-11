@@ -31,21 +31,13 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        currentClientData = DataPersistenceManager
-            .instance
-            .GameData
-            .currentBookedClient;
+        currentClientData = DataPersistenceManager.instance.GameData.currentBookedClient;
 
-        currentStencilData = TattooStencilManager
-            .instance
-            .GetStencilByIndex(currentClientData.tattooDesignIndex);
+        currentStencilData = TattooStencilManager.instance.GetStencilByIndex(currentClientData.tattooDesignIndex);
 
         stencil.sprite = currentStencilData.sprite;
 
-        tattooSurface.Initialize(
-            drawingArea,
-            stencil
-        );
+        tattooSurface.Initialize(drawingArea,stencil);
 
         tattooInputController.Initialize(drawingArea);
         painMeter.ResetMeter();
@@ -110,8 +102,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     #region Implementation
 
-    private TattooScoreResult ScoreTattoo(
-    Texture2D tattooTexture)
+    private TattooScoreResult ScoreTattoo(Texture2D tattooTexture)
     {
         Texture2D targetTexture =
             TattooScoringTextureBuilder.CreateTargetTexture(
@@ -132,7 +123,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
                         targetTexture
                     );
 
-                   var tempScoreResult =
+                    // For testing purposes, also score with the new scoring system
                     scoreController.ScoreTattoo(
                         tattooTexture,
                         targetTexture
@@ -146,7 +137,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
                         targetTexture
                     );
 
-                    var tempScoreResult2 =
+                    // For testing purposes, also score with the legacy scoring system
                     scoreControllerLegacy.ScoreTattoo(
                         tattooTexture,
                         targetTexture
@@ -198,8 +189,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
         }
     }
 
-    private float GetPainMultiplier(
-        TattooClientData.ClientTolerances tolerance)
+    private float GetPainMultiplier(TattooClientData.ClientTolerances tolerance)
     {
         switch (tolerance)
         {
@@ -217,8 +207,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
         }
     }
 
-    private float GetRecoveryPerSecond(
-        TattooClientData.ClientTolerances recovery)
+    private float GetRecoveryPerSecond(TattooClientData.ClientTolerances recovery)
     {
         switch (recovery)
         {

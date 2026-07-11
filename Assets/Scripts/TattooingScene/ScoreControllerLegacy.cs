@@ -52,9 +52,7 @@ public class ScoreControllerLegacy : MonoBehaviour
 
     #region Implementation
 
-    private TattooScoreResult CompareTextures(
-        Color32[] tattooPixels,
-        Color32[] targetPixels)
+    private TattooScoreResult CompareTextures(Color32[] tattooPixels, Color32[] targetPixels)
     {
         int targetPixelCount = 0;
         int backgroundPixelCount = 0;
@@ -161,9 +159,7 @@ public class ScoreControllerLegacy : MonoBehaviour
         return result;
     }
 
-    private float CalculateAccuracy(
-        int totalPixelCount,
-        int incorrectPixelCount)
+    private float CalculateAccuracy(int totalPixelCount, int incorrectPixelCount)
     {
         if (totalPixelCount == 0)
         {
@@ -181,10 +177,7 @@ public class ScoreControllerLegacy : MonoBehaviour
         );
     }
 
-    private Texture2D CreateTargetTexture(
-        Sprite targetSprite,
-        int width,
-        int height)
+    private Texture2D CreateTargetTexture(Sprite targetSprite, int width, int height)
     {
         Rect textureRect = targetSprite.textureRect;
         Texture2D sourceTexture = targetSprite.texture;

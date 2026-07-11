@@ -124,10 +124,7 @@ public class ScoreController : MonoBehaviour
 
     #region Texture Conversion
 
-    private Texture2D CreateTargetTexture(
-        Sprite targetSprite,
-        int width,
-        int height)
+    private Texture2D CreateTargetTexture(Sprite targetSprite, int width, int height)
     {
         Rect textureRect = targetSprite.textureRect;
         Texture2D sourceTexture = targetSprite.texture;
@@ -183,9 +180,7 @@ public class ScoreController : MonoBehaviour
         return targetTexture;
     }
 
-    private bool[] CreateMask(
-        Color32[] pixels,
-        float alphaThreshold)
+    private bool[] CreateMask(Color32[] pixels, float alphaThreshold)
     {
         bool[] mask = new bool[pixels.Length];
         byte threshold = (byte)Mathf.RoundToInt(alphaThreshold * 255f);
@@ -202,10 +197,7 @@ public class ScoreController : MonoBehaviour
 
     #region Distance Scoring
 
-    private float[] CreateDistanceMap(
-        bool[] sourceMask,
-        int width,
-        int height)
+    private float[] CreateDistanceMap(bool[] sourceMask, int width, int height)
     {
         float[] distances = new float[sourceMask.Length];
 
@@ -309,10 +301,7 @@ public class ScoreController : MonoBehaviour
         return distances;
     }
 
-    private float CalculateMatchScore(
-    bool[] pixelsToScore,
-    float[] comparisonDistanceMap,
-    float tolerancePixels)
+    private float CalculateMatchScore(bool[] pixelsToScore, float[] comparisonDistanceMap, float tolerancePixels)
     {
         float score = 0f;
         int scoredPixelCount = 0;

@@ -233,10 +233,7 @@ public class TattooStrokeController : MonoBehaviour
 
     #region Implementation
 
-    private TattooBrushSample CreateSample(
-        Vector2 uv,
-        Vector2 direction,
-        float speed)
+    private TattooBrushSample CreateSample(Vector2 uv, Vector2 direction, float speed)
     {
         return new TattooBrushSample(
             uv,
@@ -249,15 +246,14 @@ public class TattooStrokeController : MonoBehaviour
     }
 
     private float GetStampSpacingPixels()
-{
-    float brushDiameterPixels =
-        tattooCanvas.GetBrushDiameterPixels(brushSize);
+    {
+        float brushDiameterPixels = tattooCanvas.GetBrushDiameterPixels(brushSize);
 
-    return Mathf.Max(
-        1f,
-        brushDiameterPixels * lineBrush.Spacing
-    );
-}
+        return Mathf.Max(
+            1f,
+            brushDiameterPixels * lineBrush.Spacing
+        );
+    }
 
     #endregion
 }

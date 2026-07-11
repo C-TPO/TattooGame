@@ -58,9 +58,7 @@ public class TattooSurface : MonoBehaviour
         return worldSize / surfaceWorldWidth * Width;
     }
 
-    public void ApplySamples(
-        IReadOnlyList<TattooBrushSample> samples,
-        TattooBrushDefinition brushDefinition)
+    public void ApplySamples(IReadOnlyList<TattooBrushSample> samples, TattooBrushDefinition brushDefinition)
     {
         if (samples.Count == 0)
         {

@@ -4,11 +4,7 @@ public static class TattooScoringTextureBuilder
 {
     #region Public API
 
-    public static Texture2D CreateTargetTexture(
-        SpriteRenderer stencil,
-        SpriteRenderer drawingArea,
-        int width,
-        int height)
+    public static Texture2D CreateTargetTexture(SpriteRenderer stencil, SpriteRenderer drawingArea, int width, int height)
     {
         Texture2D readableStencilTexture =
             CreateReadableSpriteTexture(stencil.sprite);
@@ -124,9 +120,7 @@ public static class TattooScoringTextureBuilder
 
     #region Implementation
 
-    private static bool IsInsideStencil(
-        Vector3 position,
-        Bounds bounds)
+    private static bool IsInsideStencil( Vector3 position, Bounds bounds)
     {
         return position.x >= bounds.min.x
             && position.x <= bounds.max.x
@@ -134,8 +128,7 @@ public static class TattooScoringTextureBuilder
             && position.y <= bounds.max.y;
     }
 
-    private static Texture2D CreateReadableSpriteTexture(
-        Sprite sprite)
+    private static Texture2D CreateReadableSpriteTexture(Sprite sprite)
     {
         Rect textureRect = sprite.textureRect;
         Texture2D sourceTexture = sprite.texture;
@@ -213,12 +206,7 @@ public static class TattooScoringTextureBuilder
         return readableTexture;
     }
 
-    private static Color SampleBilinear(
-        Color[] pixels,
-        int width,
-        int height,
-        float u,
-        float v)
+    private static Color SampleBilinear(Color[] pixels, int width, int height, float u, float v)
     {
         float pixelX =
             Mathf.Clamp01(u) * (width - 1);
