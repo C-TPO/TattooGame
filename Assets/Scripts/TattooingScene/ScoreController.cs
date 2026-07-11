@@ -25,9 +25,7 @@ public class ScoreController : MonoBehaviour
 
     #region Public API
 
-    public TattooScoreResult ScoreTattoo(
-        Texture2D tattooTexture,
-        Sprite targetSprite)
+    public TattooScoreResult ScoreTattoo(Texture2D tattooTexture,Sprite targetSprite)
     {
         Texture2D targetTexture = CreateTargetTexture(
             targetSprite,

@@ -11,12 +11,20 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
     [SerializeField] private PainToleranceMeter painMeter = null;
 
     [Header("Scoring")]
+    [SerializeField] private TattooScoringMode scoringMode;
     [SerializeField] private ScoreController scoreController = null;
+    [SerializeField] private ScoreControllerLegacy scoreControllerLegacy = null;
     [SerializeField] private ScoringUIController scoringUIController = null;
 
     private TattooClientBookingData currentClientData = null;
     private TattooStencilScriptableObject currentStencilData = null;
     private bool isTattooComplete = false;
+
+    public enum TattooScoringMode
+    {
+        LegacyPixel,
+        DistanceBased
+    }
 
     #region Unity Messages
 
@@ -62,10 +70,7 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
         Texture2D tattooTexture = tattooCanvas.CreateTexture2D();
 
-        TattooScoreResult scoreResult = scoreController.ScoreTattoo(
-            tattooTexture,
-            stencil.sprite
-        );
+        TattooScoreResult scoreResult = ScoreTattoo(tattooTexture);
 
         isTattooComplete = true;
 
@@ -100,9 +105,28 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
 
     #region Implementation
 
-    private IEnumerator ShowScore(
-        TattooScoreResult scoreResult,
-        Texture2D tattooTexture)
+    private TattooScoreResult ScoreTattoo(Texture2D tattooTexture)
+    {
+        switch (scoringMode)
+        {
+            case TattooScoringMode.LegacyPixel:
+                return scoreControllerLegacy.ScoreTattoo(
+                    tattooTexture,
+                    stencil.sprite
+                );
+
+            case TattooScoringMode.DistanceBased:
+                return scoreController.ScoreTattoo(
+                    tattooTexture,
+                    stencil.sprite
+                );
+
+            default:
+                return default;
+        }
+    }
+
+    private IEnumerator ShowScore(TattooScoreResult scoreResult,Texture2D tattooTexture)
     {
         yield return new WaitForEndOfFrame();
 
