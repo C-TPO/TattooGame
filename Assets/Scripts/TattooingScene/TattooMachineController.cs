@@ -58,6 +58,10 @@ public class TattooMachineController : MonoBehaviour
 
     public void TurnOff()
     {
+        if(machineTransform == null)
+        {
+            return;
+        }
         machineTransform.DOKill();
         machineTransform.localPosition = machineIdlePosition;
 

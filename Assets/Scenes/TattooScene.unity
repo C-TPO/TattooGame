@@ -2154,12 +2154,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a117d8c3d759974696eda551bead198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreControllerB
-  targetAlphaThreshold: 0.1
-  tattooAlphaThreshold: 0.1
-  targetAccuracyWeight: 0.5
-  backgroundAccuracyWeight: 0.5
-  overallErrorPenaltyWeight: 1
-  logScoreBreakdown: 1
+  tattooCamera: {fileID: 0}
+  stencilMask:
+    serializedVersion: 2
+    m_Bits: 0
+  tattooMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1057199544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,7 +2937,7 @@ MonoBehaviour:
   tattooInputController: {fileID: 183097825}
   tattooStrokeController: {fileID: 772884845}
   painMeter: {fileID: 187667851}
-  scoringMode: 0
+  scoringMode: 1
   scoreController: {fileID: 1031312979}
   scoreControllerLegacy: {fileID: 1031312980}
   scoringUIController: {fileID: 6347473519758230414}

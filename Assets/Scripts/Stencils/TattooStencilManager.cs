@@ -36,7 +36,7 @@ public class TattooStencilManager : MonoBehaviour
     
     public int GetRandomStencilIndex()
     {
-        return Random.Range(0, stencilList.Length-1);
+        return Random.Range(0, stencilList.Length);
     }
 
     #endregion
