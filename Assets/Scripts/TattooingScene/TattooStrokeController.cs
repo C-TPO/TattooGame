@@ -77,9 +77,7 @@ public class TattooStrokeController : MonoBehaviour
 
     #region Public API
 
-    public void Initialize(
-        float clientPainMultiplier,
-        float clientRecoveryPerSecond)
+    public void Initialize(float clientPainMultiplier, float clientRecoveryPerSecond)
     {
         painMultiplier = clientPainMultiplier;
         recoveryPerSecond = clientRecoveryPerSecond;

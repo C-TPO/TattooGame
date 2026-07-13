@@ -5,9 +5,11 @@ public class TattooClientData
 
     public enum ClientTolerances
     {
+        VeryLow,
         Low,
         Medium,
-        High
+        High,
+        VeryHigh
     }
 
     public string clientName;

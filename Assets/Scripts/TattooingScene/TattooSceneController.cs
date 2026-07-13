@@ -193,17 +193,23 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
     {
         switch (tolerance)
         {
+            case TattooClientData.ClientTolerances.VeryLow:
+                return 60f;
+
             case TattooClientData.ClientTolerances.Low:
-                return 2f;
+                return 40f;
 
             case TattooClientData.ClientTolerances.Medium:
-                return 1f;
+                return 25f;
 
             case TattooClientData.ClientTolerances.High:
-                return 0.5f;
+                return 18f;
+
+            case TattooClientData.ClientTolerances.VeryHigh:
+                return 10f;
 
             default:
-                return 0.5f;
+                return 25f;
         }
     }
 
@@ -211,17 +217,23 @@ public class TattooSceneController : MonoBehaviour, IDataPersistence
     {
         switch (recovery)
         {
+            case TattooClientData.ClientTolerances.VeryLow:
+                return 4f;
+
             case TattooClientData.ClientTolerances.Low:
-                return 1f;
+                return 8f;
 
             case TattooClientData.ClientTolerances.Medium:
-                return 1.8f;
+                return 15f;
 
             case TattooClientData.ClientTolerances.High:
-                return 2.4f;
+                return 20f;
+
+            case TattooClientData.ClientTolerances.VeryHigh:
+                return 30f;
 
             default:
-                return 1f;
+                return 15f;
         }
     }
 
